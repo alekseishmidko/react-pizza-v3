@@ -1,6 +1,18 @@
 import React from "react";
 
 const Sort = () => {
+  const [popup, setPopup] = React.useState(false);
+  const [activeSort, setActiveSort] = React.useState(0);
+  //
+  const list = [
+    { name: "популярности(DESC)", sortProperty: "rating" },
+    { name: "цене(DESC)", sortProperty: "price" },
+    { name: "алфавиту(DESC)", sortProperty: "title" },
+  ];
+  const onClickSort = (id) => {
+    setActiveSort(id);
+    setPopup(false);
+  };
   return (
     <div>
       <div className="sort">
@@ -18,18 +30,32 @@ const Sort = () => {
             />
           </svg>
           <b>Сортировка по:</b>
-          <span>популярности</span>
+          <span onClick={() => setPopup(!popup)}>{list[activeSort].name}</span>
         </div>
-        <div className="sort__popup">
-          <ul>
-            <li className="active">популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li>
-          </ul>
-        </div>
+        {popup && (
+          <div className="sort__popup">
+            <ul>
+              {list.map((item, id) => (
+                <li
+                  className={activeSort === id ? "active" : ""}
+                  key={id}
+                  onClick={() => onClickSort(id)}
+                >
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default Sort;
+{
+  /* <li className="active">популярности</li>
+              <li>цене</li>
+              <li>алфавиту</li> */
+}
+// className={"active": ''}
