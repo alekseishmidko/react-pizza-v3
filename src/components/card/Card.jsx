@@ -1,29 +1,53 @@
 import React from "react";
 
 const Card = (props) => {
+  const [countPizza, setCountPizza] = React.useState(0);
+  //
+  const addCount = () => {
+    setCountPizza(countPizza + 1);
+  };
+  //
+  const pizzaSizes = ["26 см.", "30 см.", "40 см."];
+  const [sizePizza, setSizePizza] = React.useState(0);
+  //
+  const pizzaTypes = ["тонкое", "традиционное"];
+  const [typePizza, setTypePizza] = React.useState(0);
+  //
   return (
     <div>
       <div className="pizza-block">
-        <img
-          className="pizza-block__image"
-          src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-          alt="Pizza"
-        />
+        <img className="pizza-block__image" src={props.imageUrl} alt="Pizza" />
         <h4 className="pizza-block__title">{props.title}</h4>
         <div className="pizza-block__selector">
           <ul>
-            <li className="active">тонкое</li>
-            <li>традиционное</li>
+            {pizzaTypes.map((item, id) => (
+              <li
+                key={id}
+                className={typePizza === id ? "active" : ""}
+                onClick={() => setTypePizza(id)}
+              >
+                {item}
+              </li>
+            ))}
           </ul>
           <ul>
-            <li className="active">26 см.</li>
-            <li>30 см.</li>
-            <li>40 см.</li>
+            {pizzaSizes.map((item, id) => (
+              <li
+                onClick={() => setSizePizza(id)}
+                className={sizePizza === id ? "active" : ""}
+                key={id}
+              >
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {props.price} ₽</div>
-          <div className="button button--outline button--add">
+          <div
+            className="button button--outline button--add"
+            onClick={addCount}
+          >
             <svg
               width="12"
               height="12"
@@ -37,12 +61,18 @@ const Card = (props) => {
               />
             </svg>
             <span>Добавить</span>
-            <i>2</i>
+            <i>{countPizza}</i>
           </div>
         </div>
-      </div>{" "}
+      </div>
     </div>
   );
 };
 
 export default Card;
+{
+  /* <li className="active">{props.types}</li> */
+}
+{
+  /* <li>традиционное</li> */
+}
