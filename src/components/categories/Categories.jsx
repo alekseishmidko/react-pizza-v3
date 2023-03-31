@@ -1,7 +1,7 @@
 import React from "react";
 
-const Categories = () => {
-  const [activeIndex, setActiveIndex] = React.useState([0]);
+const Categories = ({ activeIndexCategory, setActiveIndexCategory }) => {
+  // const [activeIndex, setActiveIndex] = React.useState([0]);
   const categories = [
     "Все",
     "Мясные",
@@ -17,8 +17,8 @@ const Categories = () => {
           {categories.map((item, id) => (
             <li
               key={id}
-              className={activeIndex == id ? "active" : ""}
-              onClick={() => setActiveIndex(id)}
+              className={activeIndexCategory == id ? "active" : ""}
+              onClick={() => setActiveIndexCategory(id)}
             >
               {item}
             </li>

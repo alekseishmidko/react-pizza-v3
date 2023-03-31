@@ -6,10 +6,19 @@ import Sort from "../components/sort/Sort";
 const Home = () => {
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [activeIndexCategory, setActiveIndexCategory] = React.useState(0);
+  const [activeSortIndex, setActiveSortIndex] = React.useState({
+    name: "популярности(DESC)",
+    sortProperty: "rating",
+  });
   //
   React.useEffect(() => {
     setLoading(true);
-    fetch("https://63e3ba61c919fe386c0d7fe5.mockapi.io/items")
+    fetch(
+      `https://63e3ba61c919fe386c0d7fe5.mockapi.io/items?${
+        activeIndexCategory > 0 ? `category=${activeIndexCategory}` : ""
+      } &sortBy=${activeSortIndex.sortProperty}&order=desc`
+    )
       .then((res) => {
         return res.json();
       })
@@ -17,13 +26,25 @@ const Home = () => {
         setItems(json);
         setLoading(false);
       });
-  }, []);
+  }, [activeIndexCategory, activeSortIndex]);
+  console.log(
+    "activeIndexCategory",
+    activeIndexCategory,
+    "activeSortIndex",
+    activeSortIndex
+  );
 
   return (
     <div>
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories
+          activeIndexCategory={activeIndexCategory}
+          setActiveIndexCategory={setActiveIndexCategory}
+        />
+        <Sort
+          activeSortIndex={activeSortIndex}
+          setActiveSortIndex={setActiveSortIndex}
+        />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
