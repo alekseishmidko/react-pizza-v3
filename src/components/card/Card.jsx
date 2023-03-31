@@ -2,6 +2,7 @@ import React from "react";
 
 const Card = (props) => {
   const [countPizza, setCountPizza] = React.useState(0);
+
   //
   const addCount = () => {
     setCountPizza(countPizza + 1);
@@ -70,9 +71,3 @@ const Card = (props) => {
 };
 
 export default Card;
-{
-  /* <li className="active">{props.types}</li> */
-}
-{
-  /* <li>традиционное</li> */
-}

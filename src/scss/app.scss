@@ -1,4 +1,4 @@
-@import "./variables";
+@import "./variables.scss";
 // @import "./libs/normalize.scss";
 
 @import "./components/all";
@@ -6,7 +6,13 @@
 body {
   background-color: $background;
 }
-
+li {
+  text-decoration: none;
+}
+ul {
+  text-decoration: none;
+  list-style: none;
+}
 .wrapper {
   height: 100%;
   background-color: #fff;

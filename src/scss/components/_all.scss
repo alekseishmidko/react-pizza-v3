@@ -1,17 +1,5 @@
-@import "./header";
-@import "./button";
-@import "./categories";
-@import "./sort";
-@import "./pizza-block";
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-ul {
-  padding: 0;
-  margin: 9px;
-}
-a {
-  text-decoration: none;
-}
+@import './header';
+@import './button';
+@import './categories';
+@import './sort';
+@import './pizza-block';
