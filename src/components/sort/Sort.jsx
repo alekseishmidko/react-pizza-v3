@@ -15,9 +15,6 @@ const Sort = ({ activeSortIndex, setActiveSortIndex }) => {
 
     setPopup(false);
   };
-  console.log(activeSortIndex.sortProperty);
-  console.log(activeSortIndex);
-  console.log(activeSortIndex);
 
   return (
     <div>
