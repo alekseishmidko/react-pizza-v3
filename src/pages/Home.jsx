@@ -5,8 +5,10 @@ import Card from "../components/card/Card";
 import Skeleton from "../components/card/Skeleton";
 import Sort from "../components/sort/Sort";
 import Pagination from "../Pagination/Pagination";
+import { searchContext } from "../App";
 
-const Home = ({ searchValue, setSearchValue }) => {
+const Home = () => {
+  const { searchValue, setSearchValue } = React.useContext(searchContext);
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [activeIndexCategory, setActiveIndexCategory] = React.useState(0);
