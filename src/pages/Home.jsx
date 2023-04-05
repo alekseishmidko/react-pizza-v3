@@ -5,16 +5,20 @@ import Card from "../components/card/Card";
 import Skeleton from "../components/card/Skeleton";
 import Sort from "../components/sort/Sort";
 import Pagination from "../Pagination/Pagination";
+import axios from "axios";
 //
 import { useSelector, useDispatch } from "react-redux";
 import { searchContext } from "../App";
-import { setActiveIndexCategory } from "../redux/slices/filterSlice";
+import {
+  setActiveIndexCategory,
+  setCurrentPage,
+} from "../redux/slices/filterSlice";
 
 const Home = () => {
   const activeIndexCategory = useSelector(
     (state) => state.filterSlice.activeIndexCategory
   );
-  console.log(activeIndexCategory, "redux state category index");
+
   const onClickCategory = (id) => {
     dispatch(setActiveIndexCategory(id));
   };
@@ -24,35 +28,30 @@ const Home = () => {
   const activeSortIndex = useSelector(
     (state) => state.filterSlice.activeSortIndex
   );
-  // console.log(activeSortIndex, "redux state sort index");
-  //
   //
   const { searchValue, setSearchValue } = React.useContext(searchContext);
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  // const [activeIndexCategory, setActiveIndexCategory] = React.useState(0);
-  // const [activeSortIndex, setActiveSortIndex] = React.useState({
-  //   name: "популярности(DESC)",
-  //   sortProperty: "rating",
-  // });
+  //
   const search = searchValue
     ? `&search=${searchValue.toLocaleLowerCase()}`
     : "";
   //
-  //
-  const [currentPage, setCurrentPage] = React.useState(1);
+  // const [currentPage, setCurrentPage] = React.useState(1);
+  const currentPage = useSelector((state) => state.filterSlice.currentPage);
+  const pageCountChange = (number) => {
+    dispatch(setCurrentPage(number));
+  };
   React.useEffect(() => {
     setLoading(true);
-    fetch(
-      `https://63e3ba61c919fe386c0d7fe5.mockapi.io/items?${search}${
-        activeIndexCategory > 0 ? `&category=${activeIndexCategory}` : ""
-      }&sortBy=${activeSortIndex.sortProperty}&page=${currentPage}&limit=4`
-    )
+    axios
+      .get(
+        `https://63e3ba61c919fe386c0d7fe5.mockapi.io/items?${search}${
+          activeIndexCategory > 0 ? `&category=${activeIndexCategory}` : ""
+        }&sortBy=${activeSortIndex.sortProperty}&page=${currentPage}&limit=4`
+      )
       .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setItems(json);
+        setItems(res.data);
         setLoading(false);
       });
   }, [
@@ -88,7 +87,7 @@ const Home = () => {
       <div className="content__items">
         {loading ? skeletonArray : pizzasItems}
       </div>
-      <Pagination onPageChange={(number) => setCurrentPage(number)} />
+      <Pagination onPageChange={(number) => pageCountChange(number)} />
     </div>
   );
 };
@@ -106,3 +105,4 @@ export default Home;
 //     return true;
 //   }
 // })
+// onPageChange={(number) => setCurrentPage(number)}
