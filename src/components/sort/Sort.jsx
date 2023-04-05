@@ -1,6 +1,12 @@
 import React from "react";
-
-const Sort = ({ activeSortIndex, setActiveSortIndex }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { setActiveSortIndex } from "../../redux/slices/filterSlice";
+const Sort = () => {
+  const dispatch = useDispatch();
+  const activeSortIndex = useSelector(
+    (state) => state.filterSlice.activeSortIndex
+  );
+  //
   const [popup, setPopup] = React.useState(false);
   // const [activeSort, setActiveSort] = React.useState(0);
   //
@@ -10,8 +16,7 @@ const Sort = ({ activeSortIndex, setActiveSortIndex }) => {
     { name: "алфавиту(DESC)", sortProperty: "title" },
   ];
   const onClickSort = (item, id) => {
-    setActiveSortIndex(item);
-    console.log(list[id]);
+    dispatch(setActiveSortIndex(item));
 
     setPopup(false);
   };
@@ -67,3 +72,4 @@ export default Sort;
 }
 // className={"active": ''}
 // className={activeSortIndex === id ? "active" : ""}
+// { activeSortIndex, setActiveSortIndex }

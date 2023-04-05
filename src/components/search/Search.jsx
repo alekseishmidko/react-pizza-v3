@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Search.module.scss";
-
+import cross from "./cross.svg";
 import { searchContext } from "../../App";
 
 const Search = () => {
@@ -14,12 +14,14 @@ const Search = () => {
         type="text"
         placeholder="Поиск"
       />
-      <img
-        onClick={() => setSearchValue("")}
-        className={styles.cross}
-        src="./cross.svg"
-        alt="cross"
-      />
+      <>
+        <img
+          onClick={() => setSearchValue("")}
+          className={styles.cross}
+          src={cross}
+          alt="cross"
+        />
+      </>
     </div>
   );
 };

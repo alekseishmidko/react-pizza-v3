@@ -5,17 +5,36 @@ import Card from "../components/card/Card";
 import Skeleton from "../components/card/Skeleton";
 import Sort from "../components/sort/Sort";
 import Pagination from "../Pagination/Pagination";
+//
+import { useSelector, useDispatch } from "react-redux";
 import { searchContext } from "../App";
+import { setActiveIndexCategory } from "../redux/slices/filterSlice";
 
 const Home = () => {
+  const activeIndexCategory = useSelector(
+    (state) => state.filterSlice.activeIndexCategory
+  );
+  console.log(activeIndexCategory, "redux state category index");
+  const onClickCategory = (id) => {
+    dispatch(setActiveIndexCategory(id));
+  };
+
+  const dispatch = useDispatch();
+  //
+  const activeSortIndex = useSelector(
+    (state) => state.filterSlice.activeSortIndex
+  );
+  // console.log(activeSortIndex, "redux state sort index");
+  //
+  //
   const { searchValue, setSearchValue } = React.useContext(searchContext);
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  const [activeIndexCategory, setActiveIndexCategory] = React.useState(0);
-  const [activeSortIndex, setActiveSortIndex] = React.useState({
-    name: "популярности(DESC)",
-    sortProperty: "rating",
-  });
+  // const [activeIndexCategory, setActiveIndexCategory] = React.useState(0);
+  // const [activeSortIndex, setActiveSortIndex] = React.useState({
+  //   name: "популярности(DESC)",
+  //   sortProperty: "rating",
+  // });
   const search = searchValue
     ? `&search=${searchValue.toLocaleLowerCase()}`
     : "";
@@ -55,12 +74,13 @@ const Home = () => {
       <div className="content__top">
         <Categories
           activeIndexCategory={activeIndexCategory}
-          setActiveIndexCategory={setActiveIndexCategory}
+          // setActiveIndexCategory={setActiveIndexCategory}
+          onClickCategory={onClickCategory}
         />
 
         <Sort
-          activeSortIndex={activeSortIndex}
-          setActiveSortIndex={setActiveSortIndex}
+        // activeSortIndex={activeSortIndex}
+        // setActiveSortIndex={setActiveSortIndex}
         />
       </div>
 

@@ -8,10 +8,14 @@
   border-radius: 8px;
   font-size: 16px;
   transition: all 0.15s ease-in-out;
-  .cross {
-    cursor: pointer;
-    position: absolute;
-    top: 150px;
-    // left: 1000px;
-  }
+}
+.cross {
+  position: absolute;
+  cursor: pointer;
+  position: absolute;
+  top: 146px;
+  width: 25px;
+  height: 25px;
+  margin-left: -25px;
+  // left: 1000px;
 }
