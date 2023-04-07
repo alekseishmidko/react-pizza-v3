@@ -1,20 +1,35 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveSortIndex } from "../../redux/slices/filterSlice";
+
+export const list = [
+  { name: "популярности(DESC)", sortProperty: "rating" },
+  { name: "цене(DESC)", sortProperty: "price" },
+  { name: "алфавиту(DESC)", sortProperty: "title" },
+];
+
 const Sort = () => {
   const dispatch = useDispatch();
   const activeSortIndex = useSelector(
     (state) => state.filterSlice.activeSortIndex
   );
+  // cкрытие окна попап при клике на область вне попапа
+  const sortRef = React.useRef();
+  React.useEffect(() => {
+    const handleClickOutSide = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setPopup(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutSide);
+    return () => {
+      document.body.removeEventListener("click", handleClickOutSide);
+    };
+  }, []);
   //
   const [popup, setPopup] = React.useState(false);
-  // const [activeSort, setActiveSort] = React.useState(0);
-  //
-  const list = [
-    { name: "популярности(DESC)", sortProperty: "rating" },
-    { name: "цене(DESC)", sortProperty: "price" },
-    { name: "алфавиту(DESC)", sortProperty: "title" },
-  ];
+
   const onClickSort = (item, id) => {
     dispatch(setActiveSortIndex(item));
 
@@ -23,7 +38,7 @@ const Sort = () => {
 
   return (
     <div>
-      <div className="sort">
+      <div ref={sortRef} className="sort">
         <div className="sort__label">
           <svg
             width="10"

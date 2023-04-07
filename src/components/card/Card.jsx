@@ -1,13 +1,31 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../../redux/slices/cartSlice";
 
-const Card = (props) => {
-  const [countPizza, setCountPizza] = React.useState(0);
+const Card = (props, id, imageUrl, title, price) => {
+  // const [countPizza, setCountPizza] = React.useState(0);
+  const stateCount = useSelector((state) =>
+    state.cartSlice.items.find((obj) => obj.id === props.id)
+  );
 
-  //
-  const addCount = () => {
-    setCountPizza(countPizza + 1);
+  const addedCount = stateCount ? stateCount.count : 0;
+
+  const dispatch = useDispatch();
+  const onClickAdd = () => {
+    // setCountPizza(countPizza + 1);
+    const item = {
+      id: props.id,
+      title: props.title,
+      price: props.price,
+      imageUrl: props.imageUrl,
+      type: pizzaTypes[typePizza],
+      size: pizzaSizes[sizePizza],
+    };
+    dispatch(addItem(item));
   };
+  // console.log(countPizza, stateCount);
   //
+
   const pizzaSizes = ["26 см.", "30 см.", "40 см."];
   const [sizePizza, setSizePizza] = React.useState(0);
   //
@@ -47,7 +65,7 @@ const Card = (props) => {
           <div className="pizza-block__price">от {props.price} ₽</div>
           <div
             className="button button--outline button--add"
-            onClick={addCount}
+            onClick={onClickAdd}
           >
             <svg
               width="12"
@@ -62,7 +80,7 @@ const Card = (props) => {
               />
             </svg>
             <span>Добавить</span>
-            <i>{countPizza}</i>
+            {addedCount > 0 && <i>{addedCount}</i>}
           </div>
         </div>
       </div>
