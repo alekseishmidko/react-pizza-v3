@@ -5,16 +5,16 @@ import Card from "../components/card/Card";
 import Skeleton from "../components/card/Skeleton";
 import Sort, { list } from "../components/sort/Sort";
 import Pagination from "../Pagination/Pagination";
-import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
 //
 import { useSelector, useDispatch } from "react-redux";
-import { searchContext } from "../App";
+// import { searchContext } from "../App";
 import {
   setActiveIndexCategory,
   setCurrentPage,
+  setSearchValue,
 } from "../redux/slices/filterSlice";
 import { setItems, fetchPizzas } from "../redux/slices/pizzaSlice";
 
@@ -22,6 +22,7 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //
+  const searchValue = useSelector((state) => state.filterSlice.searchValue);
   const activeIndexCategory = useSelector(
     (state) => state.filterSlice.activeIndexCategory
   );
@@ -41,7 +42,7 @@ const Home = () => {
   // бизнес логика
   const { items, status } = useSelector((state) => state.pizzaSlice);
 
-  const { searchValue, setSearchValue } = React.useContext(searchContext);
+  // const { searchValue, setSearchValue } = React.useContext(searchContext);
   // const [items, setItems] = React.useState([]);
   // const [loading, setLoading] = React.useState(true);
   //
@@ -75,7 +76,6 @@ const Home = () => {
   //   currentPage,
   // ]);
   const getPizzas = async () => {
-    // setLoading(true);
     try {
       console.log("11112121");
       dispatch(
@@ -87,9 +87,7 @@ const Home = () => {
         })
       );
     } catch (error) {
-      console.log(error);
     } finally {
-      // setLoading(false);
     }
   };
 
