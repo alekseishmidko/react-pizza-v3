@@ -21,6 +21,25 @@ export const cartSlice = createSlice({
         return obj.price * obj.count + sum;
       }, 0);
     },
+    //
+    // addItem(state, { payload }) {
+    //   const findItem = state.items.find((obj) => {
+    //     return (
+    //       obj.id === payload.id &&
+    //       obj.size === payload.size &&
+    //       obj.type === payload.type
+    //     );
+    //   });
+    //   findItem
+    //     ? findItem.count++
+    //     : state.items.push({
+    //         ...payload,
+    //         count: 1,
+    //       });
+    //   state.totalPrice = state.items.reduce((sum, obj) => {
+    //     return obj.price * obj.count + sum;
+    //   }, 0);
+    // },
     removeItem(state, action) {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
@@ -35,10 +54,19 @@ export const cartSlice = createSlice({
       if (findItem) {
         findItem.count--;
       }
-      //   if (findItem.count <= 0) {
-      //     return (findItem.count = 0);
-      //   }
     },
+    // minusItem(state, { payload }) {
+    //   const findItem = state.items.find((obj) => {
+    //     return (
+    //       obj.id === payload.id &&
+    //       obj.size === payload.size &&
+    //       obj.type === payload.type
+    //     );
+    //   });
+    //   findItem && findItem.count--;
+    //   state.totalPrice -= findItem.price;
+    // },
+    //
     clearItem(state, action) {
       state.items = [];
       state.totalPrice = 0;

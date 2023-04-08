@@ -15,8 +15,8 @@ import { searchContext } from "../App";
 import {
   setActiveIndexCategory,
   setCurrentPage,
-  // setFilters,
 } from "../redux/slices/filterSlice";
+import { setItems, fetchPizzas } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,27 +38,63 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
   //
+  // бизнес логика
+  const { items, status } = useSelector((state) => state.pizzaSlice);
 
   const { searchValue, setSearchValue } = React.useContext(searchContext);
-  const [items, setItems] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  // const [items, setItems] = React.useState([]);
+  // const [loading, setLoading] = React.useState(true);
   //
   const search = searchValue
     ? `&search=${searchValue.toLocaleLowerCase()}`
     : "";
   // запрос на бекенд
+  // React.useEffect(() => {
+  //   setLoading(true);
+  //   axios
+  //     .get(
+  //       `https://63e3ba61c919fe386c0d7fe5.mockapi.io/items?${search}${
+  //         activeIndexCategory > 0 ? `&category=${activeIndexCategory}` : ""
+  //       }&sortBy=${activeSortIndex.sortProperty}&page=${currentPage}&limit=4`
+  //     )
+  //     .then((res) => {
+  //       dispatch(setItems(res.data));
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "error catch");
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // }, [
+  //   activeIndexCategory,
+  //   activeSortIndex,
+  //   searchValue,
+  //   setSearchValue,
+  //   currentPage,
+  // ]);
+  const getPizzas = async () => {
+    // setLoading(true);
+    try {
+      console.log("11112121");
+      dispatch(
+        fetchPizzas({
+          search,
+          activeSortIndex,
+          currentPage,
+          activeIndexCategory,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
   React.useEffect(() => {
-    setLoading(true);
-    axios
-      .get(
-        `https://63e3ba61c919fe386c0d7fe5.mockapi.io/items?${search}${
-          activeIndexCategory > 0 ? `&category=${activeIndexCategory}` : ""
-        }&sortBy=${activeSortIndex.sortProperty}&page=${currentPage}&limit=4`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setLoading(false);
-      });
+    getPizzas();
   }, [
     activeIndexCategory,
     activeSortIndex,
@@ -66,22 +102,23 @@ const Home = () => {
     setSearchValue,
     currentPage,
   ]);
+
   // парсинг адреса
-  React.useEffect(() => {
-    const queryString = qs.stringify({
-      sortProperty: activeSortIndex.sortProperty,
-      activeIndexCategory: activeIndexCategory,
-      currentPage: currentPage,
-    });
-    navigate(`?${queryString}`);
-    // console.log(queryString);
-  }, [
-    activeIndexCategory,
-    activeSortIndex,
-    searchValue,
-    setSearchValue,
-    currentPage,
-  ]);
+  // React.useEffect(() => {
+  //   const queryString = qs.stringify({
+  //     sortProperty: activeSortIndex.sortProperty,
+  //     activeIndexCategory: activeIndexCategory,
+  //     currentPage: currentPage,
+  //   });
+  //   navigate(`?${queryString}`);
+  //   // console.log(queryString);
+  // }, [
+  //   activeIndexCategory,
+  //   activeSortIndex,
+  //   searchValue,
+  //   setSearchValue,
+  //   currentPage,
+  // ]);
   //
   const skeletonArray = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
@@ -100,9 +137,17 @@ const Home = () => {
       </div>
 
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {loading ? skeletonArray : pizzasItems}
-      </div>
+      {status === "error" ? (
+        <div>
+          {" "}
+          <h2>Ошибка </h2>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeletonArray : pizzasItems}
+        </div>
+      )}
+
       <Pagination onPageChange={(number) => pageCountChange(number)} />
     </div>
   );
