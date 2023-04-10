@@ -6,7 +6,7 @@ import Skeleton from "../components/card/Skeleton";
 import Sort, { list } from "../components/sort/Sort";
 import Pagination from "../Pagination/Pagination";
 import qs from "qs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //
 import { useSelector, useDispatch } from "react-redux";
@@ -77,7 +77,6 @@ const Home = () => {
   // ]);
   const getPizzas = async () => {
     try {
-      console.log("11112121");
       dispatch(
         fetchPizzas({
           search,
@@ -121,7 +120,11 @@ const Home = () => {
   const skeletonArray = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  const pizzasItems = items.map((item) => <Card key={item.id} {...item} />);
+  const pizzasItems = items.map((item) => (
+    <Link key={item.id} to={`/pizza/${item.id}`}>
+      <Card {...item} />
+    </Link>
+  ));
 
   return (
     <div>
