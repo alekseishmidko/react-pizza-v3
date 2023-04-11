@@ -10,7 +10,6 @@ const Header = () => {
     return obj.count + sum;
   }, 0);
   const location = useLocation();
-  // console.log(location);
   return (
     <div>
       <div className="header">

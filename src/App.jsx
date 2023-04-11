@@ -7,10 +7,8 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
 import FullPizza from "./pages/FullPizza";
-// export const searchContext = React.createContext("");
-function App() {
-  // const [searchValue, setSearchValue] = React.useState("");
 
+function App() {
   return (
     <div className="App">
       <div className="wrapper">

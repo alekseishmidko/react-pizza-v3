@@ -8,7 +8,6 @@ import {
   minusItem,
 } from "../../redux/slices/cartSlice";
 const CartItem = ({ id, imageUrl, title, type, size, count, price }) => {
-  //   console.log(props);
   const dispatch = useDispatch();
 
   const onClickPlus = () => {

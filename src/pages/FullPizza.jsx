@@ -20,7 +20,7 @@ const FullPizza = () => {
     fetchPizza();
   }, []);
   if (!pizza) {
-    return "Loading....";
+    return "Loading...";
   }
   return (
     <div>

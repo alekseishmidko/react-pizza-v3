@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/cartSlice";
-
+import { Link } from "react-router-dom";
 const Card = (props, id, imageUrl, title, price) => {
   // const [countPizza, setCountPizza] = React.useState(0);
   const stateCount = useSelector((state) =>
@@ -23,8 +23,6 @@ const Card = (props, id, imageUrl, title, price) => {
     };
     dispatch(addItem(item));
   };
-  // console.log(countPizza, stateCount);
-  //
 
   const pizzaSizes = ["26 см.", "30 см.", "40 см."];
   const [sizePizza, setSizePizza] = React.useState(0);
@@ -35,8 +33,14 @@ const Card = (props, id, imageUrl, title, price) => {
   return (
     <div>
       <div className="pizza-block">
-        <img className="pizza-block__image" src={props.imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{props.title}</h4>
+        <Link to={`/pizza/${props.id}`}>
+          <img
+            className="pizza-block__image"
+            src={props.imageUrl}
+            alt="Pizza"
+          />
+          <h4 className="pizza-block__title">{props.title}</h4>
+        </Link>
         <div className="pizza-block__selector">
           <ul>
             {pizzaTypes.map((item, id) => (
@@ -61,6 +65,7 @@ const Card = (props, id, imageUrl, title, price) => {
             ))}
           </ul>
         </div>
+
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {props.price} ₽</div>
           <div
