@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CartItem from "../components/cartItem/CartItem";
+import CartItem from "../components/cartItem/CartItem.tsx";
 import { useSelector, useDispatch } from "react-redux";
-import { clearItem } from "../redux/slices/cartSlice";
+import { clearItem } from "../redux/slices/cartSlice.js";
 import trash from "../img/trash.svg";
-import CartEmpty from "./CartEmpty";
-const Cart = () => {
+import CartEmpty from "./CartEmpty.tsx";
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cartSlice);
-  const itemsCount = items.reduce((sum, obj) => {
+  const itemsCount = items.reduce((sum: number, obj: any) => {
     return obj.count + sum;
   }, 0);
-  const itemsPrice = items.reduce((sum, obj) => {
+  const itemsPrice = items.reduce((sum: number, obj: any) => {
     return obj.count * obj.price + sum;
   }, 0);
 

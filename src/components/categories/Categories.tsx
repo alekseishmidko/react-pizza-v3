@@ -1,6 +1,9 @@
 import React from "react";
-
-const Categories = ({ activeIndexCategory, onClickCategory }) => {
+type CategoriesProps = { activeIndexCategory: number; onClickCategory: any };
+const Categories: React.FC<CategoriesProps> = ({
+  activeIndexCategory,
+  onClickCategory,
+}) => {
   // const [activeIndex, setActiveIndex] = React.useState([0]);
   const categories = [
     "Все",
@@ -17,7 +20,7 @@ const Categories = ({ activeIndexCategory, onClickCategory }) => {
           {categories.map((item, id) => (
             <li
               key={id}
-              className={activeIndexCategory == id ? "active" : ""}
+              className={activeIndexCategory === id ? "active" : ""}
               // onClick={() => setActiveIndexCategory(id)}
               onClick={() => onClickCategory(id)}
             >

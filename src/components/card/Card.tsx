@@ -2,10 +2,16 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
-const Card = (props, id, imageUrl, title, price) => {
-  // const [countPizza, setCountPizza] = React.useState(0);
+type CardProp = {
+  // props: any;
+  id: number;
+  imageUrl: string;
+  title: string;
+  price: number;
+};
+const Card: React.FC<CardProp> = ({ id, imageUrl, title, price }) => {
   const stateCount = useSelector((state) =>
-    state.cartSlice.items.find((obj) => obj.id === props.id)
+    state.cartSlice.items.find((obj) => obj.id === id)
   );
 
   const addedCount = stateCount ? stateCount.count : 0;
@@ -14,10 +20,10 @@ const Card = (props, id, imageUrl, title, price) => {
   const onClickAdd = () => {
     // setCountPizza(countPizza + 1);
     const item = {
-      id: props.id,
-      title: props.title,
-      price: props.price,
-      imageUrl: props.imageUrl,
+      id: id,
+      title: title,
+      price: price,
+      imageUrl: imageUrl,
       type: pizzaTypes[typePizza],
       size: pizzaSizes[sizePizza],
     };
@@ -33,13 +39,9 @@ const Card = (props, id, imageUrl, title, price) => {
   return (
     <div>
       <div className="pizza-block">
-        <Link to={`/pizza/${props.id}`}>
-          <img
-            className="pizza-block__image"
-            src={props.imageUrl}
-            alt="Pizza"
-          />
-          <h4 className="pizza-block__title">{props.title}</h4>
+        <Link to={`/pizza/${id}`}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
         </Link>
         <div className="pizza-block__selector">
           <ul>
@@ -67,7 +69,7 @@ const Card = (props, id, imageUrl, title, price) => {
         </div>
 
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {props.price} ₽</div>
+          <div className="pizza-block__price">от {price} ₽</div>
           <div
             className="button button--outline button--add"
             onClick={onClickAdd}

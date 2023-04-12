@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveSortIndex } from "../../redux/slices/filterSlice";
 
-export const list = [
+export const list: { name: string; sortProperty: string }[] = [
   { name: "популярности(DESC)", sortProperty: "rating" },
   { name: "цене(DESC)", sortProperty: "price" },
   { name: "алфавиту(DESC)", sortProperty: "title" },
@@ -14,9 +14,9 @@ const Sort = () => {
     (state) => state.filterSlice.activeSortIndex
   );
   // cкрытие окна попап при клике на область вне попапа
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
-    const handleClickOutSide = (event) => {
+    const handleClickOutSide = (event: any) => {
       if (!event.composedPath().includes(sortRef.current)) {
         setPopup(false);
       }

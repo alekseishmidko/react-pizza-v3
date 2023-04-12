@@ -1,9 +1,9 @@
 import React from "react";
-import Categories from "../components/categories/Categories";
-import Card from "../components/card/Card";
-import Skeleton from "../components/card/Skeleton";
-import Sort, { list } from "../components/sort/Sort";
-import Pagination from "../Pagination/Pagination";
+import Categories from "../components/categories/Categories.tsx";
+import Card from "../components/card/Card.tsx";
+import Skeleton from "../components/card/Skeleton.tsx";
+import Sort, { list } from "../components/sort/Sort.tsx";
+import Pagination from "../Pagination/Pagination.tsx";
 // import qs from "qs";
 import { Link } from "react-router-dom";
 
@@ -17,7 +17,7 @@ import {
 } from "../redux/slices/filterSlice";
 import { setItems, fetchPizzas } from "../redux/slices/pizzaSlice";
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   //
   const searchValue = useSelector((state) => state.filterSlice.searchValue);
@@ -25,7 +25,7 @@ const Home = () => {
     (state) => state.filterSlice.activeIndexCategory
   );
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setActiveIndexCategory(id));
   };
 
@@ -33,7 +33,7 @@ const Home = () => {
     (state) => state.filterSlice.activeSortIndex
   );
   const currentPage = useSelector((state) => state.filterSlice.currentPage);
-  const pageCountChange = (number) => {
+  const pageCountChange = (number: number) => {
     dispatch(setCurrentPage(number));
   };
   //

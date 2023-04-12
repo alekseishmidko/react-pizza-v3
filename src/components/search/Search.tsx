@@ -5,13 +5,14 @@ import cross from "./cross.svg";
 import debounce from "lodash.debounce";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/slices/filterSlice";
-const Search = () => {
+// type SearchProp = {}
+const Search: React.FC = () => {
   const searchValue = useSelector((state) => state.filterSlice.searchValue);
   const dispatch = useDispatch();
   // const { searchValue, setSearchValue } = React.useContext(searchContext);
   const [value, setValue] = React.useState("");
   //
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>(null);
   //
   const testDeb = React.useCallback(
     debounce(() => {
@@ -21,8 +22,8 @@ const Search = () => {
   );
   const onClickClear = () => {
     dispatch(setSearchValue(""));
-    // document.querySelector("input").focus();
-    inputRef.current.focus();
+    // if (inputRef.current) inputRef.current.focus();
+    inputRef.current?.focus();
   };
   //
   const updateSearchValue = React.useCallback(
@@ -32,7 +33,7 @@ const Search = () => {
     []
   );
 
-  const onChangeInput = (event) => {
+  const onChangeInput = (event: any) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };

@@ -2,10 +2,10 @@ import "./App.css";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./scss/app.scss";
-import Header from "./components/header/Header";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import Cart from "./pages/Cart";
+import Header from "./components/header/Header.tsx";
+import Home from "./pages/Home.tsx";
+import NotFound from "./pages/NotFound.tsx";
+import Cart from "./pages/Cart.tsx";
 import FullPizza from "./pages/FullPizza.tsx";
 
 function App() {

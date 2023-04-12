@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import Search from "../search/Search";
+import Search from "../search/Search.tsx";
 import { useSelector } from "react-redux";
-import { addItem } from "../../redux/slices/cartSlice";
+// import { addItem } from "../../redux/slices/cartSlice";
 import pizzalogo from "../../img/pizza-logo.svg";
 const Header = () => {
   const { items, totalPrice } = useSelector((state) => state.cartSlice);
-  const itemsCount = items.reduce((sum, obj) => {
+  const itemsCount = items.reduce((sum: number, obj: any) => {
     return obj.count + sum;
   }, 0);
   const location = useLocation();
