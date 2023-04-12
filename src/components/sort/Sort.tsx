@@ -13,11 +13,14 @@ const Sort = () => {
   const activeSortIndex = useSelector(
     (state) => state.filterSlice.activeSortIndex
   );
+  type clickPopup = MouseEvent & {
+    path: Node[];
+  };
   // cкрытие окна попап при клике на область вне попапа
   const sortRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
-    const handleClickOutSide = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutSide = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setPopup(false);
       }
     };

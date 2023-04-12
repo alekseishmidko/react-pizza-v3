@@ -1,5 +1,8 @@
 import React from "react";
-type CategoriesProps = { activeIndexCategory: number; onClickCategory: any };
+type CategoriesProps = {
+  activeIndexCategory: number;
+  onClickCategory: (n: number) => void;
+};
 const Categories: React.FC<CategoriesProps> = ({
   activeIndexCategory,
   onClickCategory,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styles from "./Search.module.scss";
 import cross from "./cross.svg";
 // import { searchContext } from "../../App";
@@ -20,10 +20,11 @@ const Search: React.FC = () => {
     }, 1000),
     []
   );
-  const onClickClear = () => {
+  const onClickClear = (event: React.MouseEvent<SVGSVGElement>) => {
     dispatch(setSearchValue(""));
-    // if (inputRef.current) inputRef.current.focus();
-    inputRef.current?.focus();
+    if (inputRef.current) inputRef.current.focus();
+    setValue("");
+    // inputRef.current?.focus();
   };
   //
   const updateSearchValue = React.useCallback(
@@ -33,7 +34,7 @@ const Search: React.FC = () => {
     []
   );
 
-  const onChangeInput = (event: any) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
