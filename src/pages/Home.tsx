@@ -6,39 +6,43 @@ import Sort, { list } from "../components/sort/Sort.tsx";
 import Pagination from "../Pagination/Pagination.tsx";
 // import qs from "qs";
 import { Link } from "react-router-dom";
-
 //
+import {
+  selectFilterActiveIndexCategory,
+  selectFilterCurrentPage,
+  selectFilterSearchValue,
+  selectFilterActiveSortIndex,
+} from "../redux/slices/filterSlice.ts";
+//
+import { selectPizzaSlice } from "../redux/slices/pizzaSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
   setActiveIndexCategory,
   setCurrentPage,
   setSearchValue,
-} from "../redux/slices/filterSlice";
-import { setItems, fetchPizzas } from "../redux/slices/pizzaSlice";
+} from "../redux/slices/filterSlice.ts";
+
+import { setItems, fetchPizzas } from "../redux/slices/pizzaSlice.ts";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   //
-  const searchValue = useSelector((state) => state.filterSlice.searchValue);
-  const activeIndexCategory = useSelector(
-    (state) => state.filterSlice.activeIndexCategory
-  );
+  const searchValue = useSelector(selectFilterSearchValue);
+  const activeIndexCategory = useSelector(selectFilterActiveIndexCategory);
 
   const onClickCategory = (id: number) => {
     dispatch(setActiveIndexCategory(id));
   };
 
-  const activeSortIndex = useSelector(
-    (state) => state.filterSlice.activeSortIndex
-  );
-  const currentPage = useSelector((state) => state.filterSlice.currentPage);
+  const activeSortIndex = useSelector(selectFilterActiveSortIndex);
+  const currentPage = useSelector(selectFilterCurrentPage);
   const pageCountChange = (number: number) => {
     dispatch(setCurrentPage(number));
   };
   //
   // бизнес логика
-  const { items, status } = useSelector((state) => state.pizzaSlice);
+  const { items, status } = useSelector(selectPizzaSlice);
 
   const search = searchValue
     ? `&search=${searchValue.toLocaleLowerCase()}`

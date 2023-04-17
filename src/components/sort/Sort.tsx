@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveSortIndex } from "../../redux/slices/filterSlice";
-
+import { setActiveSortIndex } from "../../redux/slices/filterSlice.ts";
+import { selectFilterActiveSortIndex } from "../../redux/slices/filterSlice.ts";
 export const list: { name: string; sortProperty: string }[] = [
   { name: "популярности(DESC)", sortProperty: "rating" },
   { name: "цене(DESC)", sortProperty: "price" },
@@ -10,9 +10,7 @@ export const list: { name: string; sortProperty: string }[] = [
 
 const Sort = () => {
   const dispatch = useDispatch();
-  const activeSortIndex = useSelector(
-    (state) => state.filterSlice.activeSortIndex
-  );
+  const activeSortIndex = useSelector(selectFilterActiveSortIndex);
   type clickPopup = MouseEvent & {
     path: Node[];
   };
@@ -33,7 +31,7 @@ const Sort = () => {
   //
   const [popup, setPopup] = React.useState(false);
 
-  const onClickSort = (item, id) => {
+  const onClickSort = (item: number, id: number) => {
     dispatch(setActiveSortIndex(item));
 
     setPopup(false);
@@ -83,11 +81,3 @@ const Sort = () => {
 };
 
 export default Sort;
-{
-  /* <li className="active">популярности</li>
-              <li>цене</li>
-              <li>алфавиту</li> */
-}
-// className={"active": ''}
-// className={activeSortIndex === id ? "active" : ""}
-// { activeSortIndex, setActiveSortIndex }

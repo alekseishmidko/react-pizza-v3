@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CartItem from "../components/cartItem/CartItem.tsx";
 import { useSelector, useDispatch } from "react-redux";
-import { clearItem } from "../redux/slices/cartSlice.js";
+import { clearItem } from "../redux/slices/cartSlice.ts";
 import trash from "../img/trash.svg";
 import CartEmpty from "./CartEmpty.tsx";
+import { selectCart } from "../redux/slices/cartSlice.ts";
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
-  const { items } = useSelector((state) => state.cartSlice);
+  const { items } = useSelector((selectCart));
   const itemsCount = items.reduce((sum: number, obj: any) => {
     return obj.count + sum;
   }, 0);
@@ -26,7 +27,6 @@ const Cart: React.FC = () => {
       <div className="wrapper">
         {items.length > 0 && (
           <div onClick={() => onClickClear()} className="cart__clear">
-            {" "}
             <img src={trash} alt="trash" />
             Очистить корзину
           </div>

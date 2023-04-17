@@ -4,7 +4,7 @@ import cross from "./cross.svg";
 // import { searchContext } from "../../App";
 import debounce from "lodash.debounce";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue } from "../../redux/slices/filterSlice";
+import { setSearchValue } from "../../redux/slices/filterSlice.ts";
 // type SearchProp = {}
 const Search: React.FC = () => {
   const searchValue = useSelector((state) => state.filterSlice.searchValue);
